@@ -1,20 +1,20 @@
 package modele;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
-public class ChatRoom implements ChatRoomInterface{
+public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 
-	Hashtable<String, Utilisateur> utilisateurs;
+	Hashtable<String, UtilisateurInterface> utilisateurs;
 	
 	protected ChatRoom() throws RemoteException {
 		super();
-		utilisateurs = new Hashtable<String, Utilisateur>();
+		utilisateurs = new Hashtable<String, UtilisateurInterface>();
 	}
 
-	
-	public void inscription(Utilisateur user, String pseudo) throws RemoteException  {
+	public void inscription(UtilisateurInterface user, String pseudo) throws RemoteException  {
 		if(!utilisateurs.containsKey(pseudo)){
 			utilisateurs.put(pseudo, user);
 			this.postMessage(pseudo, "connected");
@@ -32,9 +32,9 @@ public class ChatRoom implements ChatRoomInterface{
 	public void postMessage(String pseudo, String message) throws RemoteException  {
 		String messageEntier = pseudo+" >>>> "+message;
 		System.out.println(messageEntier);
-		Enumeration<Utilisateur> e = utilisateurs.elements();
+		Enumeration<UtilisateurInterface> e = utilisateurs.elements();
 		while(e.hasMoreElements()){
-			Utilisateur user = (Utilisateur)e.nextElement();
+			UtilisateurInterface user = (UtilisateurInterface)e.nextElement();
 			user.displayMessage(messageEntier);
 		}
 	}

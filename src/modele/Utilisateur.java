@@ -1,17 +1,22 @@
 package modele;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class Utilisateur implements UtilisateurInterface {
+public class Utilisateur extends UnicastRemoteObject implements UtilisateurInterface {
 
 	private ChatRoomGUI ig;
 	private String login;
 	private String mdp;
 	
-	protected Utilisateur(ChatRoomGUI interfaceGraphique,String login, String mdp) {
-		this.ig = interfaceGraphique;
-		this.setLogin(login);
-		this.setMdp(mdp);
+	protected Utilisateur(String login, String mdp) throws RemoteException {
+		super();
+		this.login = login;
+		this.mdp = mdp;
+	}
+	
+	protected Utilisateur() throws RemoteException {
+		super();
 	}
 	
 	public void setIg(ChatRoomGUI ig) {

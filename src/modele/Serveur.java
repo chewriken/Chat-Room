@@ -1,8 +1,12 @@
 package modele;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 
 
 public class Serveur implements Runnable{
@@ -69,6 +73,25 @@ public class Serveur implements Runnable{
 	       public static void main(String[] test) {
 			   Serveur server = new Serveur(5000);
 			   new Thread(server).start();
+			   
+			 //lancement dynamique du registre de noms RMI
+				try {
+					LocateRegistry.createRegistry(1099);
+					//instanciation d'un objet de la classe distante
+					ChatRoom chatRoomImpl = new ChatRoom();
+					//enregistrement dans le registre de noms RMI
+					//String url = "rmi://" + InetAddress.getLocalHost().getHostAddress() + "/TP0";
+					//System.out.println("Enregistrement de l'objet avec l'url : " + url);
+					Naming.rebind("TP0", chatRoomImpl);
+					System.out.println("Serveur lanc�");
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (MalformedURLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 
 	       }
 }
