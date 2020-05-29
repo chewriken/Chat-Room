@@ -28,6 +28,10 @@ public class Utilisateur extends UnicastRemoteObject implements UtilisateurInter
 		ig.display(message);
 	}
 
+	public void displayMessage2(String message) throws RemoteException  {
+		ig.display2(message);
+	}
+	
 	public String getLogin() {
 		return login;
 	}

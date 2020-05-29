@@ -2,8 +2,12 @@ package modele;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -24,29 +28,26 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 public class ChatRoomGUI{
 	
 	private String title = "Logiciel de discussion en ligne";
     private String pseudo = null;
     private ChatRoomInterface room = null;
+    protected Socket clientSocket; 
+    private Utilisateur user;
     
     private JFrame frame = new JFrame(this.title);
-    private JTextArea txtOutput = new JTextArea();
-    private JTextField txtMessage = new JTextField();
+    private JTextPane textPane = new JTextPane();
+    private JTextPane textPane_1 = new JTextPane();
+    private JTextField txtEcrivezVotreMessage = new JTextField();
     private JButton btnSend = new JButton("Envoyer");
-    Utilisateur user;
-	
+    
 	public ChatRoomGUI() throws RemoteException {
 		
-		this.createIHM();
-		int max = 10; 
-	    int min = 1; 
-	    int range = max - min + 1; 
-		int i = (int)(Math.random()*range);
-		
 		try {
-			final Socket clientSocket = new Socket("127.0.0."+i,5000);
+			clientSocket = new Socket("127.0.0.1",5000);
 			user = new Utilisateur();
         	user.setIg(this);
         	
@@ -54,6 +55,7 @@ public class ChatRoomGUI{
 			Remote r = Naming.lookup("TP0");
 			this.room = (ChatRoomInterface)r;
 			this.requestPseudo();
+			this.initialize();
 		} catch (MalformedURLException e) {
 			System.out.println("Impossible de joindre la salle de discussion");
 			System.exit(0);
@@ -70,22 +72,62 @@ public class ChatRoomGUI{
 	 
 	}
 	
-	public void createIHM() {
-        // Assemblage des composants
-        JPanel panel = (JPanel)this.frame.getContentPane();
-        JScrollPane sclPane = new JScrollPane(txtOutput);
-        panel.add(sclPane, BorderLayout.CENTER);
-        JPanel southPanel = new JPanel(new BorderLayout());
-        southPanel.add(this.txtMessage, BorderLayout.CENTER);
-        southPanel.add(this.btnSend, BorderLayout.EAST);
-        panel.add(southPanel, BorderLayout.SOUTH);
+		
+		/**
+		 * Initialize the contents of the frame.
+		 */
+		private void initialize() {
+			
+			// Assemblage des composants
+			
+			frame.setBounds(100, 100, 534, 384);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.getContentPane().setLayout(null);
+			
+			btnSend.setBounds(381, 312, 150, 35);
+			btnSend.setForeground(new Color(0, 0, 0));
+			btnSend.setBackground(new Color(245, 255, 250));
+			frame.getContentPane().add(btnSend);
+			
+			txtEcrivezVotreMessage.setBackground(new Color(255, 255, 255));
+			txtEcrivezVotreMessage.setText("Ecrivez votre message");
+			txtEcrivezVotreMessage.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			txtEcrivezVotreMessage.setBounds(0, 312, 383, 35);
+			txtEcrivezVotreMessage.addFocusListener(new FocusListener() {
+				
+				@Override
+				public void focusGained(FocusEvent e) {
+					txtEcrivezVotreMessage.setText("");	
+				}
+
+				@Override
+				public void focusLost(FocusEvent e) {
+					txtEcrivezVotreMessage.setText("Ecrivez votre message");	
+				}
+			});
+			
+			frame.getContentPane().add(txtEcrivezVotreMessage);
+			txtEcrivezVotreMessage.setColumns(10);
+			
+			textPane.setBackground(new Color(248, 248, 255));
+			textPane.setBounds(2, 0, 381, 306);
+			frame.getContentPane().add(textPane);
+			
+			textPane_1.setBackground(new Color(192, 192, 192));
+			textPane_1.setBounds(391, 0, 119, 304);
+			frame.getContentPane().add(textPane_1);
+			
+			Scrollbar scrollbar = new Scrollbar();
+			scrollbar.setBounds(362, 10, 21, 296);
+			frame.getContentPane().add(scrollbar);
+	
 
         // Gestion des �v�nements
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 try {
 					window_windowClosing(e);
-				} catch (RemoteException e1) {
+				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
             }
@@ -95,7 +137,7 @@ public class ChatRoomGUI{
                 btnSend_actionPerformed(e);
             }
         });
-	txtMessage.addKeyListener(new KeyAdapter() {
+	txtEcrivezVotreMessage.addKeyListener(new KeyAdapter() {
 		public void keyReleased(KeyEvent event) {
 			if (event.getKeyChar() == '\n')
 			    btnSend_actionPerformed(null);
@@ -103,16 +145,12 @@ public class ChatRoomGUI{
 	});
 
         // Initialisation des attributs
-        this.txtOutput.setBackground(new Color(220,220,220));
-        this.txtOutput.setEditable(false);
-		this.frame.setSize(500,400);
+        this.textPane.setEditable(false);
+        this.textPane_1.setEditable(false);
         this.frame.setVisible(true);
-        this.txtMessage.requestFocus();
+        this.txtEcrivezVotreMessage.requestFocus();
     }
 
-	/*public void display(String message) throws RemoteException {
-		System.out.println(message);
-	}*/
 	
 	//inscription
     public void requestPseudo() throws RemoteException {
@@ -126,27 +164,33 @@ public class ChatRoomGUI{
     }
     
     //desinscription
-    public void window_windowClosing(WindowEvent e) throws RemoteException {
+    public void window_windowClosing(WindowEvent e) throws IOException {
     	this.room.desinscription(pseudo);
+    	clientSocket.close();
     	System.exit(-1);
     }
     
     //envoi message
     public void btnSend_actionPerformed(ActionEvent e) {
     	try {
-			this.room.postMessage(this.pseudo, this.txtMessage.getText());
+			this.room.postMessage(this.pseudo, this.txtEcrivezVotreMessage.getText());
 		} catch (RemoteException e1) {
 			e1.printStackTrace();
 			System.out.println("Impossible d envoyer le message");
 		}
-    	this.txtMessage.setText("");
-        this.txtMessage.requestFocus();
+    	this.txtEcrivezVotreMessage.setText("");
+        this.txtEcrivezVotreMessage.requestFocus();
     }
 
 
 	public void display(String message) throws RemoteException {
-		this.txtOutput.append(message +" \n");
-		this.txtOutput.moveCaretPosition(this.txtOutput.getText().length());
+		this.textPane.setText(textPane.getText()+ message +" \n");
+		this.textPane.moveCaretPosition(this.textPane.getText().length());
+	}
+	
+	public void display2(String message) {
+		this.textPane_1.setText(textPane_1.getText()+ message +" \n");
+		this.textPane_1.moveCaretPosition(this.textPane_1.getText().length());
 	}
 	
 	public static void main(String[] args) throws RemoteException {
@@ -155,4 +199,6 @@ public class ChatRoomGUI{
       user.displayMessage("salut bg");*/
 		new ChatRoomGUI();
 	}
+
+
 }

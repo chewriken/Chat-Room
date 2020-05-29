@@ -1,6 +1,7 @@
 package modele;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -63,7 +64,7 @@ public class Serveur implements Runnable{
 
 	       private void openServerSocket() {
 	           try {
-	               this.serverSocket = new ServerSocket(this.serverPort);
+	               this.serverSocket = new ServerSocket(this.serverPort,1,InetAddress.getByName("127.0.0.1"));
 	           } catch (IOException e) {
 	               throw new RuntimeException("Cannot open port "+ this.serverPort , e);
 	           }
@@ -85,10 +86,8 @@ public class Serveur implements Runnable{
 					Naming.rebind("TP0", chatRoomImpl);
 					System.out.println("Serveur lanc�");
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				
