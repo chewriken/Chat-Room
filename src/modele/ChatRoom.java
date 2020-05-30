@@ -24,7 +24,7 @@ public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 
 	public void desinscription(String pseudo) throws RemoteException {
 		String message = pseudo+" disconnected";
-		if(utilisateurs.containsKey(pseudo)) {
+		if(utilisateurs.containsKey(pseudo)){
 			utilisateurs.remove(pseudo);
 			this.messageInscription(pseudo, message);
 		}

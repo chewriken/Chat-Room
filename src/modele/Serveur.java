@@ -2,23 +2,31 @@ package modele;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
 
-public class Serveur implements Runnable{
+public class Serveur implements Runnable {
  
-	protected int serverPort = 8080;
+	protected int serverPort = 5000;
 	protected ServerSocket serverSocket = null;
+	InetSocketAddress ipAddrAndPort;
 	protected boolean isStopped = false;
 	protected Thread runningThread = null;
 
-	       public Serveur(int port){
+	       public Serveur(int port) throws UnknownHostException{
 	           this.serverPort = port;
+	           ipAddrAndPort = new InetSocketAddress(InetAddress.getByName("192.168.1.14"),5000);
+	       }
+	       
+	       public Serveur() throws UnknownHostException{
+	    	   ipAddrAndPort = new InetSocketAddress(InetAddress.getByName("192.168.1.14"),5000);
 	       }
 
 	       public void run(){
@@ -64,15 +72,16 @@ public class Serveur implements Runnable{
 
 	       private void openServerSocket() {
 	           try {
-	               this.serverSocket = new ServerSocket(this.serverPort,1,InetAddress.getByName("127.0.0.1"));
+	               this.serverSocket = new ServerSocket();
+	               this.serverSocket.bind(ipAddrAndPort,1);
 	           } catch (IOException e) {
 	               throw new RuntimeException("Cannot open port "+ this.serverPort , e);
 	           }
 	       }
 
 	       
-	       public static void main(String[] test) {
-			   Serveur server = new Serveur(5000);
+	       public static void main(String[] test) throws UnknownHostException {
+			   Serveur server = new Serveur();
 			   new Thread(server).start();
 			   
 			 //lancement dynamique du registre de noms RMI

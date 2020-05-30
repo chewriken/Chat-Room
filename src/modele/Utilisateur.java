@@ -8,11 +8,13 @@ public class Utilisateur extends UnicastRemoteObject implements UtilisateurInter
 	private ChatRoomGUI ig;
 	private String login;
 	private String mdp;
+	private String pseudo;
 	
-	protected Utilisateur(String login, String mdp) throws RemoteException {
+	protected Utilisateur(String login, String mdp, String pseudo) throws RemoteException {
 		super();
 		this.login = login;
 		this.mdp = mdp;
+		this.setPseudo(pseudo);
 	}
 	
 	protected Utilisateur() throws RemoteException {
@@ -46,5 +48,13 @@ public class Utilisateur extends UnicastRemoteObject implements UtilisateurInter
 
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
 	}
 }
