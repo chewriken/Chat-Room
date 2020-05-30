@@ -1,6 +1,5 @@
 package modele;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Scrollbar;
@@ -13,6 +12,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -24,9 +25,6 @@ import java.rmi.RemoteException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
@@ -35,7 +33,7 @@ public class ChatRoomGUI{
 	private String title = "Chat Room";
     private String pseudo = null;
     private ChatRoomInterface room = null;
-    protected Socket clientSocket; 
+    protected Socket clientSocket = new Socket(); 
     private Utilisateur user;
     
     private JFrame frame = new JFrame(this.title);
@@ -44,17 +42,20 @@ public class ChatRoomGUI{
     private JTextField txtEcrivezVotreMessage = new JTextField();
     private JButton btnSend = new JButton("Envoyer");
     
-	public ChatRoomGUI() throws RemoteException {
+	public ChatRoomGUI(Utilisateur utilisateur) throws RemoteException {
 		
 		try {
-			clientSocket = new Socket("127.0.0.1",5000);
-			user = new Utilisateur();
+			InetSocketAddress localIpAddrAndPort = new InetSocketAddress(5000);
+			InetSocketAddress serverIpAddrAndPort = new InetSocketAddress(InetAddress.getByName("192.168.1.14"),5000);
+			clientSocket.connect(serverIpAddrAndPort);
+			//clientSocket = new Socket("127.0.0.1",5000);
+			user = utilisateur;
         	user.setIg(this);
         	
 			//obtention d'une r�f�rence sur l'objet distant � partir de son nom
 			Remote r = Naming.lookup("TP0");
 			this.room = (ChatRoomInterface)r;
-			this.requestPseudo();
+			 this.room.inscription(user, user.getPseudo());
 			this.initialize();
 		} catch (MalformedURLException e) {
 			System.out.println("Impossible de joindre la salle de discussion");
@@ -152,21 +153,12 @@ public class ChatRoomGUI{
     }
 
 	
-	//inscription
-    public void requestPseudo() throws RemoteException {
-        this.pseudo = JOptionPane.showInputDialog(
-            this.frame, "Entrez votre pseudo : ",
-            this.title,  JOptionPane.OK_OPTION
-        );
-        if (this.pseudo == null) System.exit(0);
-        this.room.inscription(user, pseudo);
-        
-    }
     
     //desinscription
     public void window_windowClosing(WindowEvent e) throws IOException {
-    	this.room.desinscription(pseudo);
+    	this.room.desinscription(user.getPseudo());
     	clientSocket.close();
+    	frame.dispose();
     	System.exit(-1);
     }
     
@@ -193,12 +185,4 @@ public class ChatRoomGUI{
 		this.textPane_1.moveCaretPosition(this.textPane_1.getText().length());
 	}
 	
-	public static void main(String[] args) throws RemoteException {
-	  /*ChatRoomGUI interfaceG = new ChatRoomGUI();
-	  Utilisateur user = new Utilisateur(interfaceG,"jo","jo");
-      user.displayMessage("salut bg");*/
-		new ChatRoomGUI();
-	}
-
-
 }
