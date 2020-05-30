@@ -16,8 +16,7 @@ public class DataBaseConnect {
 		String url = "jdbc:postgresql://localhost:5432/ChatRoom";
 	    String user = "postgres";
 	    String passwd = "2Gh3tt097218*";
-		conn = DriverManager.getConnection(url, user, passwd);
-		System.out.println("Connexion effective !");
+		Connection conn = DriverManager.getConnection(url, user, passwd);
 		
 	}
 	  
@@ -30,5 +29,4 @@ public class DataBaseConnect {
 		Statement stmt = conn.createStatement();
 		return stmt.executeUpdate(requete);
 	}
-	
 }
