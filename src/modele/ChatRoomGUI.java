@@ -32,7 +32,7 @@ import javax.swing.JTextPane;
 
 public class ChatRoomGUI{
 	
-	private String title = "Logiciel de discussion en ligne";
+	private String title = "Chat Room";
     private String pseudo = null;
     private ChatRoomInterface room = null;
     protected Socket clientSocket; 
