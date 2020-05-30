@@ -31,7 +31,7 @@ public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 	}
 
 	public void postMessage(String pseudo, String message) throws RemoteException  {
-		String messageEntier = pseudo+" >>>> "+message;
+		String messageEntier = pseudo + " : \n" + message + " \n ";
 		System.out.println(messageEntier);
 		Enumeration<UtilisateurInterface> e = utilisateurs.elements();
 		while(e.hasMoreElements()){
@@ -41,7 +41,7 @@ public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 	}
 	
 	private void messageInscription(String pseudo, String message) throws RemoteException {
-		String messageEntier = pseudo+" >>>> "+message;
+		String messageEntier = pseudo + " >>> " +message;
 		System.out.println(messageEntier);
 		Enumeration<UtilisateurInterface> e = utilisateurs.elements();
 		while(e.hasMoreElements()){

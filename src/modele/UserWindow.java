@@ -24,6 +24,7 @@ public class UserWindow implements ActionListener {
 	private DataBaseConnect dB;
 	private JLabel lblUtilisateurOuMdp;
 	private JButton btnConnexion;
+	private JButton btnSinscrire;
  
 
  /**
@@ -37,9 +38,7 @@ public class UserWindow implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UserWindow window = new UserWindow();
-					window.frame.setVisible(true);
-				
+					new UserWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -50,16 +49,7 @@ public class UserWindow implements ActionListener {
 	}
 	
 
-	 /**
-	
-	* Create the application.
-	
-	*/
-	
-	public UserWindow() {
-		initialize();
-	}
-	
+
 	
 	 
 	 /**
@@ -68,7 +58,7 @@ public class UserWindow implements ActionListener {
 	
 	*/
 	
-	private void initialize() {
+	public UserWindow() {
 	
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);	
@@ -111,6 +101,16 @@ public class UserWindow implements ActionListener {
 		lblUtilisateurOuMdp.setBounds(138, 302, 164, 16);
 		lblUtilisateurOuMdp.setVisible(false);
 		frame.getContentPane().add(lblUtilisateurOuMdp);
+		
+		JLabel labelRedirection = new JLabel("Pas encore de compte ?");
+		labelRedirection.setBounds(130, 423, 154, 16);
+		frame.getContentPane().add(labelRedirection);
+
+		btnSinscrire = new JButton("S'inscrire");
+		btnSinscrire.setBounds(154, 451, 117, 29);
+		btnSinscrire.addActionListener(this);
+		frame.getContentPane().add(btnSinscrire);
+		frame.setVisible(true);
 	}
 	
 	 
@@ -147,6 +147,9 @@ public class UserWindow implements ActionListener {
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
+		}else if(evt.getSource() == btnSinscrire){
+			frame.dispose();
+			new InscriptionWindow();
 		}
 		
 	}

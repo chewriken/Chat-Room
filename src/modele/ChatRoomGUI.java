@@ -164,7 +164,7 @@ public class ChatRoomGUI{
     //envoi message
     public void btnSend_actionPerformed(ActionEvent e) {
     	try {
-			this.room.postMessage(this.pseudo, this.txtEcrivezVotreMessage.getText());
+			this.room.postMessage(user.getPseudo(), this.txtEcrivezVotreMessage.getText());
 		} catch (RemoteException e1) {
 			e1.printStackTrace();
 			System.out.println("Impossible d envoyer le message");
