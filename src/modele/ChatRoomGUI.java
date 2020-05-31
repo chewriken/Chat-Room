@@ -24,8 +24,11 @@ import java.rmi.RemoteException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
 
 public class ChatRoomGUI{
 	
@@ -36,8 +39,8 @@ public class ChatRoomGUI{
     private Utilisateur user;
     
     private JFrame frame = new JFrame(this.title);
-    private JTextPane textPane = new JTextPane();
-    private JTextPane textPane_1 = new JTextPane();
+    private JTextArea messageArea = new JTextArea();
+    private JTextArea userArea = new JTextArea();
     private JTextField txtEcrivezVotreMessage = new JTextField();
     private JButton btnSend = new JButton("Envoyer");
     
@@ -80,19 +83,21 @@ public class ChatRoomGUI{
 			
 			// Assemblage des composants
 			
-			frame.setBounds(100, 100, 534, 384);
+			frame.setBounds(350, 350, 750, 400);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.getContentPane().setLayout(null);
 			
 			btnSend.setBounds(381, 312, 150, 35);
 			btnSend.setForeground(new Color(0, 0, 0));
-			btnSend.setBackground(new Color(245, 255, 250));
+			btnSend.setBackground(new Color(175, 238, 238));
+			btnSend.setForeground(new Color(0, 0, 0));
+			btnSend.setBounds(627, 330, 109, 33);
 			frame.getContentPane().add(btnSend);
 			
 			txtEcrivezVotreMessage.setBackground(new Color(255, 255, 255));
 			txtEcrivezVotreMessage.setText("Ecrivez votre message");
 			txtEcrivezVotreMessage.setFont(new Font("Tahoma", Font.PLAIN, 10));
-			txtEcrivezVotreMessage.setBounds(0, 312, 383, 35);
+			txtEcrivezVotreMessage.setBounds(0, 331, 617, 32);
 			txtEcrivezVotreMessage.addFocusListener(new FocusListener() {
 				
 				@Override
@@ -108,19 +113,25 @@ public class ChatRoomGUI{
 			
 			frame.getContentPane().add(txtEcrivezVotreMessage);
 			txtEcrivezVotreMessage.setColumns(10);
+					
+			JScrollPane scrollPane_1 = new JScrollPane();
+			frame.getContentPane().add(scrollPane_1);
+			scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			scrollPane_1.setBounds(0, 1, 476, 325);
 			
-			textPane.setBackground(new Color(248, 248, 255));
-			textPane.setBounds(2, 0, 381, 306);
-			frame.getContentPane().add(textPane);
-			
-			textPane_1.setBackground(new Color(192, 192, 192));
-			textPane_1.setBounds(391, 0, 119, 304);
-			frame.getContentPane().add(textPane_1);
-			
-			Scrollbar scrollbar = new Scrollbar();
-			scrollbar.setBounds(362, 10, 21, 296);
-			frame.getContentPane().add(scrollbar);
+			JScrollPane scrollPane_2 = new JScrollPane();
+			frame.getContentPane().add(scrollPane_2);
+			scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+			scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			scrollPane_2.setBounds(486, 1, 250, 325);
 	
+			messageArea.setBackground(new Color(240, 255, 240));
+			scrollPane_1.setViewportView(messageArea);
+			
+			userArea.setBackground(new Color(220, 220, 220));
+			userArea.setBounds(391, 0, 119, 304);
+			scrollPane_2.setViewportView(userArea);
 
         // Gestion des �v�nements
         frame.addWindowListener(new WindowAdapter() {
@@ -145,8 +156,8 @@ public class ChatRoomGUI{
 	});
 
         // Initialisation des attributs
-        this.textPane.setEditable(false);
-        this.textPane_1.setEditable(false);
+        this.messageArea.setEditable(false);
+        this.userArea.setEditable(false);
         this.frame.setVisible(true);
         this.txtEcrivezVotreMessage.requestFocus();
     }
@@ -175,13 +186,13 @@ public class ChatRoomGUI{
 
 
 	public void display(String message) throws RemoteException {
-		this.textPane.setText(textPane.getText()+ message +" \n");
-		this.textPane.moveCaretPosition(this.textPane.getText().length());
+		this.messageArea.setText(messageArea.getText()+ message +" \n");
+		this.messageArea.moveCaretPosition(this.messageArea.getText().length());
 	}
 	
 	public void display2(String message) {
-		this.textPane_1.setText(textPane_1.getText()+ message +" \n");
-		this.textPane_1.moveCaretPosition(this.textPane_1.getText().length());
+		this.userArea.setText(userArea.getText()+ message +" \n");
+		this.userArea.moveCaretPosition(this.userArea.getText().length());
 	}
 	
 }
