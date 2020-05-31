@@ -1,56 +1,31 @@
-package modele;
+package vue;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import controleur.Controleur;
+import modele.DataBaseConnect;
+import modele.Utilisateur;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class UserWindow implements ActionListener {
+public class UserWindow {
 
-	private JFrame frame;
-	private JTextField loginField;
-	private JTextField mdpField;
-	private DataBaseConnect dB;
-	private JLabel lblUtilisateurOuMdp;
+	private static JFrame frame;
+	private static JTextField loginField;
+	private static JTextField mdpField;
+	private static DataBaseConnect dB;
+	private static JLabel lblUtilisateurOuMdp;
 	private JButton btnConnexion;
 	private JButton btnSinscrire;
- 
-
- /**
-
-* Launch the application.
-
-*/
-
-	public static void main(String[] args) {
-
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new UserWindow();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-			}	
-		});
-
-	}
-	
-
-
-	
+	private Controleur controleur;
 	 
 	 /**
 	
@@ -60,6 +35,8 @@ public class UserWindow implements ActionListener {
 	
 	public UserWindow() {
 	
+		controleur = new Controleur();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);	
 		frame.setSize(400, 600);		
@@ -87,7 +64,8 @@ public class UserWindow implements ActionListener {
 		
 		btnConnexion = new JButton("Connexion");
 		btnConnexion.setBounds(154, 348, 117, 29);
-		btnConnexion.addActionListener(this);
+		btnConnexion.setActionCommand("connexion");
+		btnConnexion.addActionListener(controleur);
 		frame.getContentPane().add(btnConnexion);
 		
 		JLabel lblChatRoom = new JLabel("Chat Room");
@@ -108,14 +86,16 @@ public class UserWindow implements ActionListener {
 
 		btnSinscrire = new JButton("S'inscrire");
 		btnSinscrire.setBounds(154, 451, 117, 29);
-		btnSinscrire.addActionListener(this);
+		btnSinscrire.setActionCommand("fenetre inscription");
+		btnSinscrire.addActionListener(controleur);
 		frame.getContentPane().add(btnSinscrire);
 		frame.setVisible(true);
+		
 	}
 	
 	 
 	
-	public void connexion() throws SQLException, RemoteException, ClassNotFoundException {
+	public static void connexion() throws SQLException, RemoteException, ClassNotFoundException {
 	
 		dB = new DataBaseConnect();
 		ResultSet rset = dB.query("select login, mdp, pseudo from public.user ");
@@ -135,30 +115,16 @@ public class UserWindow implements ActionListener {
 			
 			else{ lblUtilisateurOuMdp.setVisible(true); }
 		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent evt) {
-		if(evt.getSource() == btnConnexion){
-			try {
-				connexion();
-			} catch (RemoteException | SQLException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-		}else if(evt.getSource() == btnSinscrire){
-			frame.dispose();
-			new InscriptionWindow();
-		}
-		
+			
 	}
 	
-	 
+	public static void inscription(){
+		frame.dispose();
+		new InscriptionWindow();
+	}
 	
-	 
-
-
- 
+	public static void main (String[] args){
+		new UserWindow();
+	}
 
 }

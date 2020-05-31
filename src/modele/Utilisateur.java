@@ -3,6 +3,8 @@ package modele;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import vue.ChatRoomGUI;
+
 public class Utilisateur extends UnicastRemoteObject implements UtilisateurInterface {
 
 	private ChatRoomGUI ig;
@@ -10,7 +12,7 @@ public class Utilisateur extends UnicastRemoteObject implements UtilisateurInter
 	private String mdp;
 	private String pseudo;
 	
-	protected Utilisateur(String login, String mdp, String pseudo) throws RemoteException {
+	public Utilisateur(String login, String mdp, String pseudo) throws RemoteException {
 		super();
 		this.login = login;
 		this.mdp = mdp;

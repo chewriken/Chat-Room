@@ -1,51 +1,37 @@
-package modele;
+package vue;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import controleur.Controleur;
+import modele.DataBaseConnect;
+import modele.Utilisateur;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class InscriptionWindow implements ActionListener  {
+public class InscriptionWindow {
 	
-	private JFrame frame;
-	private JTextField pseudoField;
-	private JTextField utilisateurField;
-	private JTextField mdpField;
+	private static JFrame frame;
+	private static JTextField pseudoField;
+	private static JTextField utilisateurField;
+	private static JTextField mdpField;
 	private JButton btnSinscrire;
-	private JLabel lblPseudoDjExistant;
-	private JTextField mdpConfField;
-	private JLabel lblConfirmationMotDe;
-	private JLabel labelError;
-	private JLabel lblDjUnCompte;
+	private static JLabel lblPseudoDjExistant;
+	private static JTextField mdpConfField;
+	private static JLabel lblConfirmationMotDe;
+	private static JLabel labelError;
+	private static JLabel lblDjUnCompte;
 	private JButton btnSeConnecter;
-	private JLabel labelLoginExistant;
-	private DataBaseConnect dB;
-
+	private static JLabel labelLoginExistant;
+	private static DataBaseConnect dB;
+	private Controleur controleur;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new InscriptionWindow();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
 	 /**
 	
@@ -53,6 +39,8 @@ public class InscriptionWindow implements ActionListener  {
 	
 	*/
 	public InscriptionWindow() {
+		controleur = new Controleur();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setSize(400, 600);
@@ -93,7 +81,8 @@ public class InscriptionWindow implements ActionListener  {
 		
 		btnSinscrire = new JButton("S'inscrire");
 		btnSinscrire.setBounds(157, 430, 117, 29);
-		btnSinscrire.addActionListener(this);
+		btnSinscrire.setActionCommand("inscription");
+		btnSinscrire.addActionListener(controleur);
 		frame.getContentPane().add(btnSinscrire);
 		
 		lblPseudoDjExistant = new JLabel("Pseudo déjà existant");
@@ -125,7 +114,8 @@ public class InscriptionWindow implements ActionListener  {
 
 		btnSeConnecter = new JButton("Se connecter");
 		btnSeConnecter.setBounds(157, 500, 117, 29);
-		btnSeConnecter.addActionListener(this);
+		btnSeConnecter.setActionCommand("fenetre connexion");
+		btnSeConnecter.addActionListener(controleur);
 		frame.getContentPane().add(btnSeConnecter);
 		
 		labelError = new JLabel("Mot de passes non identiques");
@@ -138,7 +128,7 @@ public class InscriptionWindow implements ActionListener  {
 
 	}
 	
-	public void inscription() throws SQLException, RemoteException, ClassNotFoundException {
+	public static void inscription() throws SQLException, RemoteException, ClassNotFoundException {
 		
 		dB = new DataBaseConnect();
 		
@@ -156,47 +146,31 @@ public class InscriptionWindow implements ActionListener  {
 				labelError.setVisible(false);
 				labelLoginExistant.setVisible(false);
 				lblPseudoDjExistant.setVisible(true);
-				System.out.println("ici2");
 			}
 			else if (listUtilisateur.get(i).getLogin().equals(utilisateurField.getText())){
 				labelError.setVisible(false);
 				lblPseudoDjExistant.setVisible(false);
 				labelLoginExistant.setVisible(true);
-				System.out.println("ici1");
 			}
 			
 			else if(!(mdpField.getText().equals(mdpConfField.getText()))){
 				lblPseudoDjExistant.setVisible(false);
 				labelLoginExistant.setVisible(false);
 				labelError.setVisible(true);
-				System.out.println("ici3");
 				
 			}else {
 				dB.modification("INSERT INTO public.user (login, mdp, pseudo) VALUES ('"+ utilisateurField.getText()+"', '"
 				+ mdpField.getText()+"', '"+ pseudoField.getText() +"') " );
 				frame.dispose();
 				new ChatRoomGUI(new Utilisateur(utilisateurField.getText(),mdpField.getText(),pseudoField.getText()));
-				System.out.println("ici4");
 			}
 			
 		}
 	}
-
-
-	@Override
-	public void actionPerformed(ActionEvent parEvt) {
-		if(parEvt.getSource() == btnSinscrire){
-			try {
-				inscription();
-			} catch (RemoteException | ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if(parEvt.getSource() == btnSeConnecter ){
-			frame.dispose();
-			new UserWindow();
-		}
-		
+	
+	public static void connexion(){
+		frame.dispose();
+		new UserWindow();
 	}
 
 }

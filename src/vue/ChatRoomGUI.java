@@ -1,8 +1,7 @@
-package modele;
+package vue;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -27,13 +26,14 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
+
+import modele.ChatRoomInterface;
+import modele.Utilisateur;
 
 public class ChatRoomGUI{
 	
 	private String title = "Chat Room";
-    private String pseudo = null;
     private ChatRoomInterface room = null;
     protected Socket clientSocket = new Socket(); 
     private Utilisateur user;
@@ -143,6 +143,7 @@ public class ChatRoomGUI{
 				}
             }
         });
+         	
         btnSend.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btnSend_actionPerformed(e);
