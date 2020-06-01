@@ -48,6 +48,9 @@ public class NouveauMdp extends JFrame {
 	 * Create the frame.
 	 */
 	public NouveauMdp() {
+		
+		controleur = new Controleur();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setSize(400, 600);

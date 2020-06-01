@@ -66,6 +66,7 @@ public class Controleur implements ActionListener {
 			case "changement mdp":
 				try {
 					NouveauMdp.changementMDP();
+					GestionCompte.FenetreGestion();
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
