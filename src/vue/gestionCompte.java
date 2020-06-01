@@ -59,24 +59,16 @@ public class gestionCompte {
 		lblNewLabel_2.setBounds(47, 148, 80, 32);
 		frmInformationDuCompte.getContentPane().add(lblNewLabel_2);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(118, 56, 131, 22);
-		frmInformationDuCompte.getContentPane().add(textArea);
-		
-		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(118, 106, 131, 22);
-		frmInformationDuCompte.getContentPane().add(textArea_1);
-		
-		JTextArea textArea_2 = new JTextArea();
-		textArea_2.setBounds(135, 152, 131, 22);
-		frmInformationDuCompte.getContentPane().add(textArea_2);
-		
 		JButton btnNewButton = new JButton("Modifier le pseudo");
-		btnNewButton.setBounds(25, 210, 161, 21);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(283, 58, 161, 21);
 		frmInformationDuCompte.getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Modifier le login");
-		btnNewButton_1.setBounds(196, 210, 141, 21);
+		btnNewButton_1.setBounds(283, 108, 141, 21);
 		frmInformationDuCompte.getContentPane().add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Modifer le mot de passe");
@@ -84,7 +76,19 @@ public class gestionCompte {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_2.setBounds(347, 209, 194, 22);
+		btnNewButton_2.setBounds(283, 153, 194, 22);
 		frmInformationDuCompte.getContentPane().add(btnNewButton_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setBounds(111, 53, 131, 31);
+		frmInformationDuCompte.getContentPane().add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setBounds(111, 105, 131, 26);
+		frmInformationDuCompte.getContentPane().add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setBounds(137, 148, 131, 32);
+		frmInformationDuCompte.getContentPane().add(lblNewLabel_5);
 	}
 }
