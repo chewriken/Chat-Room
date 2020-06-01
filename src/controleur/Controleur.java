@@ -87,6 +87,10 @@ public class Controleur implements ActionListener {
 				GestionCompte.FenetreGestion();
 			break;
 			
+			case "fermeture":
+				GestionCompte.Fermeture();
+			break;
+			
 		}
 		
 	}

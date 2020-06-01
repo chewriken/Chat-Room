@@ -14,7 +14,7 @@ import javax.swing.JButton;
 
 public class GestionCompte extends JFrame{
 
-	private JFrame frame;
+	private static JFrame frame;
 	private JLabel lblPseudo;
 	private JLabel lblLogin;
 	private JLabel lblMDP;
@@ -94,6 +94,13 @@ public class GestionCompte extends JFrame{
 		lblMDP = new JLabel(user.getMdp());
 		lblMDP.setBounds(137, 148, 131, 32);
 		frame.getContentPane().add(lblMDP);
+		
+		JButton btnFermer = new JButton("Fermer");
+		btnFermer.setBounds(47, 211, 85, 21);
+		btnFermer.setActionCommand("fermeture");
+		btnFermer.addActionListener(controleur);
+		frame.getContentPane().add(btnFermer);
+		
 		frame.setVisible(true);
 	}
 	
@@ -111,5 +118,9 @@ public class GestionCompte extends JFrame{
 	
 	public static void FenetreGestion(){
 		new GestionCompte();
+	}
+	
+	public static void Fermeture(){
+		frame.dispose();;
 	}
 }
