@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class gestionnaireCompte {
+public class GestionnaireWindow {
 
 	private JFrame frmInformationDuCompte;
 
@@ -21,7 +21,7 @@ public class gestionnaireCompte {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					gestionnaireCompte window = new gestionnaireCompte();
+					GestionnaireWindow window = new GestionnaireWindow();
 					window.frmInformationDuCompte.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +33,7 @@ public class gestionnaireCompte {
 	/**
 	 * Create the application.
 	 */
-	public gestionnaireCompte() {
+	public GestionnaireWindow() {
 		initialize();
 	}
 
