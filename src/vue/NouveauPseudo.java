@@ -1,22 +1,24 @@
-package interfaceGraphique;
+package vue;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import controleur.Controleur;
+import modele.DataBaseConnect;
+import modele.Utilisateur;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import java.awt.Font;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 
 public class NouveauPseudo extends JFrame {
-	private JFrame frame;
-	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private static JFrame frame;
+	private JTextField ancienPseudoField;
+	private Controleur controleur;
+	private static JTextField nouveauPseudoField;
+	private static DataBaseConnect dB;
 
 	/**
 	 * Launch the application.
@@ -48,15 +50,15 @@ public class NouveauPseudo extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(154, 192, 130, 26);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		ancienPseudoField = new JTextField();
+		ancienPseudoField.setBounds(154, 192, 130, 26);
+		frame.getContentPane().add(ancienPseudoField);
+		ancienPseudoField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(154, 255, 130, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		nouveauPseudoField = new JTextField();
+		nouveauPseudoField.setBounds(154, 255, 130, 26);
+		frame.getContentPane().add(nouveauPseudoField);
+		nouveauPseudoField.setColumns(10);
 		
 		JLabel labelAncienPseudo = new JLabel("Ancien Pseudo :");
 		labelAncienPseudo.setBounds(18, 197, 124, 16);
@@ -73,7 +75,17 @@ public class NouveauPseudo extends JFrame {
 		
 		JButton btnChangerPseudo = new JButton("Confirmer");
 		btnChangerPseudo.setBounds(139, 320, 145, 29);
+		btnChangerPseudo.setActionCommand("Changement pseudo");
+		btnChangerPseudo.addActionListener(controleur);
 		frame.getContentPane().add(btnChangerPseudo);
 		frame.setVisible(true);
+	}
+	
+	public static void changementPseudo() throws ClassNotFoundException, SQLException{
+		dB = new DataBaseConnect();
+		Utilisateur user = ChatRoomGUI.getUser();
+		dB.modification("update publis.user set pseudo = '" + nouveauPseudoField.getText() +"' where pseudo = '" + user.getPseudo());
+		JOptionPane.showMessageDialog(frame, "pseudo modifié");
+		frame.dispose();	
 	}
 }

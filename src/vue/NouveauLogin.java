@@ -1,21 +1,24 @@
-package interfaceGraphique;
+package vue;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import controleur.Controleur;
+import modele.DataBaseConnect;
+import modele.Utilisateur;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.sql.SQLException;
 
 public class NouveauLogin extends JFrame {
-	private JFrame frame;
-	private JPanel contentPane;
+	private static JFrame frame;
 	private JTextField OldLoginField;
-	private JTextField NewLoginField;
+	private static JTextField newLoginField;
+	private Controleur controleur = new Controleur();
+	private static DataBaseConnect dB;
 
 	/**
 	 * Launch the application.
@@ -37,6 +40,7 @@ public class NouveauLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public NouveauLogin() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setSize(400, 600);
@@ -49,10 +53,10 @@ public class NouveauLogin extends JFrame {
 		frame.getContentPane().add(OldLoginField);
 		OldLoginField.setColumns(10);
 		
-		NewLoginField = new JTextField();
-		NewLoginField.setBounds(224, 267, 130, 26);
-		frame.getContentPane().add(NewLoginField);
-		NewLoginField.setColumns(10);
+		newLoginField = new JTextField();
+		newLoginField.setBounds(224, 267, 130, 26);
+		frame.getContentPane().add(newLoginField);
+		newLoginField.setColumns(10);
 		
 		JLabel labelOldLogin = new JLabel("Ancien Nom d'utilisateur :");
 		labelOldLogin.setBounds(30, 217, 170, 16);
@@ -64,17 +68,23 @@ public class NouveauLogin extends JFrame {
 		
 		JButton btnConfirmer = new JButton("Confirmer");
 		btnConfirmer.setBounds(142, 369, 117, 29);
+		btnConfirmer.setActionCommand("Changement login");
+		btnConfirmer.addActionListener(controleur);
 		frame.getContentPane().add(btnConfirmer);
 		
 		JLabel lblModificationNomDutilisateur = new JLabel("Modification Nom d'utilisateur");
 		lblModificationNomDutilisateur.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblModificationNomDutilisateur.setBounds(83, 61, 222, 16);
-		frame.getContentPane().add(lblModificationNomDutilisateur);
-	
-		
+		frame.getContentPane().add(lblModificationNomDutilisateur);		
 		frame.setVisible(true);
-		
-		
+	}
+	
+	public static void changementLogin() throws ClassNotFoundException, SQLException{
+		dB = new DataBaseConnect();
+		Utilisateur user = ChatRoomGUI.getUser();
+		dB.modification("update publis.user set login = '" + newLoginField.getText() +"' where login = '" + user.getLogin());
+		JOptionPane.showMessageDialog(frame, "login modifié");
+		frame.dispose();	
 	}
 
 }

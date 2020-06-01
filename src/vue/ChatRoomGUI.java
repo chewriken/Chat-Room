@@ -36,7 +36,7 @@ public class ChatRoomGUI{
 	private String title = "Chat Room";
     private ChatRoomInterface room = null;
     protected Socket clientSocket = new Socket(); 
-    private Utilisateur user;
+    private static Utilisateur user;
     
     private JFrame frame = new JFrame(this.title);
     private JTextArea messageArea = new JTextArea();
@@ -50,7 +50,6 @@ public class ChatRoomGUI{
 			InetSocketAddress localIpAddrAndPort = new InetSocketAddress(5000);
 			InetSocketAddress serverIpAddrAndPort = new InetSocketAddress(InetAddress.getByName("192.168.1.14"),5000);
 			clientSocket.connect(serverIpAddrAndPort);
-			//clientSocket = new Socket("127.0.0.1",5000);
 			user = utilisateur;
         	user.setIg(this);
         	
@@ -194,6 +193,10 @@ public class ChatRoomGUI{
 	public void display2(String message) {
 		this.userArea.setText(userArea.getText()+ message +" \n");
 		this.userArea.moveCaretPosition(this.userArea.getText().length());
+	}
+	
+	public static Utilisateur getUser() {
+		return user;
 	}
 	
 }

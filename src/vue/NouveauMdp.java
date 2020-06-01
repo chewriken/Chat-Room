@@ -1,22 +1,33 @@
-package interfaceGraphique;
+package vue;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+
+import modele.DataBaseConnect;
+import modele.Utilisateur;
+
 import javax.swing.JTextField;
+
+import controleur.Controleur;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 
 public class NouveauMdp extends JFrame {
 
-	private JPanel contentPane;
-	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private static JFrame frame;
+	private JTextField ancienMDPField;
+	private static JTextField nouveauMDPField;
+	private static DataBaseConnect dB;
+	private Controleur controleur;
 
 	/**
 	 * Launch the application.
@@ -46,15 +57,15 @@ public class NouveauMdp extends JFrame {
 		frame.getContentPane().setLayout(null);
 		
 		
-		textField = new JTextField();
-		textField.setBounds(244, 204, 130, 26);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		ancienMDPField = new JTextField();
+		ancienMDPField.setBounds(244, 204, 130, 26);
+		frame.getContentPane().add(ancienMDPField);
+		ancienMDPField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(244, 280, 130, 26);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		nouveauMDPField = new JTextField();
+		nouveauMDPField.setBounds(244, 280, 130, 26);
+		frame.getContentPane().add(nouveauMDPField);
+		nouveauMDPField.setColumns(10);
 		
 		JLabel labelOldPassword = new JLabel("Ancien Mot de passe :");
 		labelOldPassword.setBounds(35, 209, 157, 16);
@@ -71,9 +82,19 @@ public class NouveauMdp extends JFrame {
 		
 		JButton btnConfirmerNewPassword = new JButton("Confirmer");
 		btnConfirmerNewPassword.setBounds(137, 390, 117, 29);
+		btnConfirmerNewPassword.setActionCommand("Changement mdp");
+		btnConfirmerNewPassword.addActionListener(controleur);
 		frame.getContentPane().add(btnConfirmerNewPassword);
 		
 		frame.setVisible(true);
+	}
+	
+	public static void changementMDP() throws ClassNotFoundException, SQLException{
+		dB = new DataBaseConnect();
+		Utilisateur user = ChatRoomGUI.getUser();
+		dB.modification("update publis.user set mdp = '" + nouveauMDPField.getText() +"' where mdp = '" + user.getMdp());
+		JOptionPane.showMessageDialog(frame, "mot de passe modifié");
+		frame.dispose();	
 	}
 
 }

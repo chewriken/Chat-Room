@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import vue.InscriptionWindow;
+import vue.NouveauLogin;
 import vue.UserWindow;
 
 public class Controleur implements ActionListener {
@@ -41,6 +42,23 @@ public class Controleur implements ActionListener {
 
 			case "fenetre connexion":
 				InscriptionWindow.connexion();
+			break;
+			
+			case "changement login":
+				try {
+					NouveauLogin.changementLogin();
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			break;
+			
+			case "changement pseudo":
+				
+			break;
+				
+			case "changement mdp":
+				
 			break;
 			
 		}
