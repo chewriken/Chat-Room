@@ -20,20 +20,6 @@ public class NouveauPseudo extends JFrame {
 	private static JTextField nouveauPseudoField;
 	private static DataBaseConnect dB;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new NouveauPseudo();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

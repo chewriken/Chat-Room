@@ -1,19 +1,15 @@
 package vue;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import controleur.Controleur;
 import modele.DataBaseConnect;
 import modele.Utilisateur;
-
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.sql.SQLException;
-
 import javax.swing.JButton;
 import java.awt.Color;
 
@@ -27,20 +23,6 @@ public class NouveauMdp extends JFrame {
 	private Controleur controleur;
 	private static DataBaseConnect dB;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NouveauMdp frame = new NouveauMdp();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.

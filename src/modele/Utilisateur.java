@@ -1,6 +1,9 @@
 package modele;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+import vue.ChatRoomGUI;
 
 /**
  * <b> Classe qui permet de gérer les paramètres de l'Utilisateur </b>
