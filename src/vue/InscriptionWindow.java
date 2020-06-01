@@ -15,6 +15,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * <b> Fenêtre permettant à un nouvel utilisateur de s'inscrire dans l'application </b>
+ * @author adilbahou
+ *
+ */
 public class InscriptionWindow {
 	
 	private static JFrame frame;

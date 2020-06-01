@@ -3,7 +3,7 @@ package modele;
 import java.rmi.RemoteException;
 
 /**
- * <b> </b>
+ * <b> Classe qui permet de gérer les paramètres de l'Utilisateur </b>
  * @author adilbahou
  *
  */
@@ -14,6 +14,12 @@ public class Utilisateur extends UnicastRemoteObject implements UtilisateurInter
 	private String mdp;
 	private String pseudo;
 	
+	/**
+	 * 
+	 * @param login
+	 * @param mdp
+	 * @param pseudo
+	 */
 	public Utilisateur(String login, String mdp, String pseudo) throws RemoteException {
 		super();
 		this.login = login;

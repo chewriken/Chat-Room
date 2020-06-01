@@ -7,6 +7,12 @@ import controleur.Controleur;
 import modele.Utilisateur;
 import javax.swing.JButton;
 
+/**
+ * <b> Fenêtre permettant à l'utilisateur de gérer ses paramètres </b>
+ * @author adilbahou
+ *
+ */
+
 public class GestionCompte extends JFrame{
 
 	private static JFrame frame;
