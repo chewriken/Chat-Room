@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
+import vue.GestionCompte;
 import vue.InscriptionWindow;
 import vue.NouveauLogin;
+import vue.NouveauMdp;
+import vue.NouveauPseudo;
 import vue.UserWindow;
 
 public class Controleur implements ActionListener {
@@ -48,17 +51,41 @@ public class Controleur implements ActionListener {
 				try {
 					NouveauLogin.changementLogin();
 				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			break;
 			
 			case "changement pseudo":
-				
+				try {
+					NouveauPseudo.changementPseudo();
+				} catch (ClassNotFoundException | SQLException e) {
+					e.printStackTrace();
+				}
 			break;
 				
 			case "changement mdp":
+				try {
+					NouveauMdp.changementMDP();
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			break;
+			
+			case "fenetre pseudo":
+				GestionCompte.FenetrePseudo();
+			break;
+			
+			case "fenetre login":
+				GestionCompte.FenetreLogin();
+			break;
 				
+			case "fenetre mdp":
+				GestionCompte.FenetreMDP();
+			break;
+			
+			case "compte":
+				GestionCompte.FenetreGestion();
 			break;
 			
 		}

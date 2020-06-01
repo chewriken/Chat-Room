@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class NouveauLogin extends JFrame {
 	private static JFrame frame;
-	private JTextField OldLoginField;
+	private JLabel OldLoginField;
 	private static JTextField newLoginField;
 	private Controleur controleur = new Controleur();
 	private static DataBaseConnect dB;
@@ -27,8 +27,7 @@ public class NouveauLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NouveauLogin frame = new NouveauLogin();
-					frame.setVisible(true);
+					new NouveauLogin();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,10 +47,11 @@ public class NouveauLogin extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		OldLoginField = new JTextField();
+		Utilisateur user = ChatRoomGUI.getUser();
+		
+		OldLoginField = new JLabel(user.getLogin());
 		OldLoginField.setBounds(224, 217, 130, 26);
 		frame.getContentPane().add(OldLoginField);
-		OldLoginField.setColumns(10);
 		
 		newLoginField = new JTextField();
 		newLoginField.setBounds(224, 267, 130, 26);

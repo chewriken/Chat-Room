@@ -24,7 +24,7 @@ import javax.swing.JButton;
 public class NouveauMdp extends JFrame {
 
 	private static JFrame frame;
-	private JTextField ancienMDPField;
+	private JLabel ancienMDPField;
 	private static JTextField nouveauMDPField;
 	private static DataBaseConnect dB;
 	private Controleur controleur;
@@ -36,8 +36,7 @@ public class NouveauMdp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NouveauMdp frame = new NouveauMdp();
-					frame.setVisible(true);
+					new NouveauMdp();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,11 +55,11 @@ public class NouveauMdp extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		Utilisateur user = ChatRoomGUI.getUser();
 		
-		ancienMDPField = new JTextField();
+		ancienMDPField = new JLabel(user.getMdp());
 		ancienMDPField.setBounds(244, 204, 130, 26);
 		frame.getContentPane().add(ancienMDPField);
-		ancienMDPField.setColumns(10);
 		
 		nouveauMDPField = new JTextField();
 		nouveauMDPField.setBounds(244, 280, 130, 26);

@@ -28,6 +28,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import controleur.Controleur;
 import modele.ChatRoomInterface;
 import modele.Utilisateur;
 
@@ -37,12 +38,14 @@ public class ChatRoomGUI{
     private ChatRoomInterface room = null;
     protected Socket clientSocket = new Socket(); 
     private static Utilisateur user;
+    private Controleur controleur;
     
     private JFrame frame = new JFrame(this.title);
     private JTextArea messageArea = new JTextArea();
     private JTextArea userArea = new JTextArea();
     private JTextField txtEcrivezVotreMessage = new JTextField();
     private JButton btnSend = new JButton("Envoyer");
+    private JButton btnCompte;
     
 	public ChatRoomGUI(Utilisateur utilisateur) throws RemoteException {
 		
@@ -81,6 +84,7 @@ public class ChatRoomGUI{
 		private void initialize() {
 			
 			// Assemblage des composants
+			controleur = new Controleur();
 			
 			frame.setBounds(350, 350, 750, 400);
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,13 +94,13 @@ public class ChatRoomGUI{
 			btnSend.setForeground(new Color(0, 0, 0));
 			btnSend.setBackground(new Color(175, 238, 238));
 			btnSend.setForeground(new Color(0, 0, 0));
-			btnSend.setBounds(627, 330, 109, 33);
+			btnSend.setBounds(486, 330, 109, 33);
 			frame.getContentPane().add(btnSend);
 			
 			txtEcrivezVotreMessage.setBackground(new Color(255, 255, 255));
 			txtEcrivezVotreMessage.setText("Ecrivez votre message");
 			txtEcrivezVotreMessage.setFont(new Font("Tahoma", Font.PLAIN, 10));
-			txtEcrivezVotreMessage.setBounds(0, 331, 617, 32);
+			txtEcrivezVotreMessage.setBounds(0, 331, 476, 32);
 			txtEcrivezVotreMessage.addFocusListener(new FocusListener() {
 				
 				@Override
@@ -129,8 +133,13 @@ public class ChatRoomGUI{
 			scrollPane_1.setViewportView(messageArea);
 			
 			userArea.setBackground(new Color(220, 220, 220));
-			userArea.setBounds(391, 0, 119, 304);
 			scrollPane_2.setViewportView(userArea);
+			
+			btnCompte = new JButton("Gérer le compte");
+			btnCompte.setBounds(605, 330, 131, 33);
+			btnCompte.setActionCommand("compte");
+			btnCompte.addActionListener(controleur);
+			frame.getContentPane().add(btnCompte);
 
         // Gestion des �v�nements
         frame.addWindowListener(new WindowAdapter() {

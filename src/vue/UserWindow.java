@@ -25,7 +25,7 @@ public class UserWindow {
 	private static JLabel lblUtilisateurOuMdp;
 	private JButton btnConnexion;
 	private JButton btnSinscrire;
-	private Controleur controleur;
+	private Controleur controleur = new Controleur();
 	 
 	 /**
 	
@@ -35,7 +35,6 @@ public class UserWindow {
 	
 	public UserWindow() {
 	
-		controleur = new Controleur();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);	
@@ -126,6 +125,4 @@ public class UserWindow {
 	public static void main (String[] args){
 		new UserWindow();
 	}
-	
-
 }

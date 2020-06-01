@@ -15,7 +15,7 @@ import javax.swing.JButton;
 
 public class NouveauPseudo extends JFrame {
 	private static JFrame frame;
-	private JTextField ancienPseudoField;
+	private JLabel ancienPseudoField;
 	private Controleur controleur;
 	private static JTextField nouveauPseudoField;
 	private static DataBaseConnect dB;
@@ -27,8 +27,7 @@ public class NouveauPseudo extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NouveauPseudo frame = new NouveauPseudo();
-					frame.setVisible(true);
+					new NouveauPseudo();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -40,9 +39,7 @@ public class NouveauPseudo extends JFrame {
 	 * Create the frame.
 	 */
 	public NouveauPseudo() {
-		getContentPane().setLayout(null);
-		
-
+	
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);	
 		frame.setSize(400, 600);		
@@ -50,10 +47,11 @@ public class NouveauPseudo extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		ancienPseudoField = new JTextField();
+		Utilisateur user = ChatRoomGUI.getUser();
+		
+		ancienPseudoField = new JLabel(user.getPseudo());
 		ancienPseudoField.setBounds(154, 192, 130, 26);
 		frame.getContentPane().add(ancienPseudoField);
-		ancienPseudoField.setColumns(10);
 		
 		nouveauPseudoField = new JTextField();
 		nouveauPseudoField.setBounds(154, 255, 130, 26);
