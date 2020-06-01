@@ -27,7 +27,7 @@ public class Controleur implements ActionListener {
 		
 	}
 
-	@Override
+	@Override	
 	public void actionPerformed(ActionEvent evt) {
 		switch(evt.getActionCommand()){
 			case "connexion":
@@ -101,9 +101,17 @@ public class Controleur implements ActionListener {
 				GestionCompte.Fermeture();
 			break;
 			
-		}
-		
+			case"retour login":
+				NouveauLogin.fermeture();
+			break;
+			
+			case"retour pseudo":
+				NouveauPseudo.fermeture();
+			break;
+			
+			case"retour mdp":
+				NouveauMdp.fermeture();
+			break;
+		}		
 	}
-	
-	
 }

@@ -1,15 +1,10 @@
 package vue;
 
 import java.awt.EventQueue;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import controleur.Controleur;
 import modele.Utilisateur;
-
 import javax.swing.JButton;
 
 public class GestionCompte extends JFrame{
@@ -20,24 +15,6 @@ public class GestionCompte extends JFrame{
 	private JLabel lblMDP;
 	private Controleur controleur;
 	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new GestionCompte();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-
-
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -121,6 +98,6 @@ public class GestionCompte extends JFrame{
 	}
 	
 	public static void Fermeture(){
-		frame.dispose();;
+		frame.dispose();
 	}
 }

@@ -104,8 +104,9 @@ public class NouveauMdp extends JFrame {
 		
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.setBounds(27, 490, 117, 29);
+		btnRetour.setActionCommand("retour mdp");
+		btnRetour.addActionListener(controleur);
 		frame.getContentPane().add(btnRetour);
-		frame.setVisible(true);
 		
 		frame.setVisible(true);
 	}
@@ -122,5 +123,9 @@ public class NouveauMdp extends JFrame {
 		else{
 			lblPasswordFalse.setVisible(true);
 		}
+	}
+	
+	public static void fermeture(){
+		frame.dispose();
 	}
 }

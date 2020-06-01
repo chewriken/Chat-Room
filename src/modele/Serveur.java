@@ -27,7 +27,7 @@ public class Serveur implements Runnable {
  
 	protected int serverPort = 5000;
 	protected ServerSocket serverSocket = null;
-	InetSocketAddress ipAddrAndPort;
+	protected InetSocketAddress ipAddrAndPort;
 	protected boolean isStopped = false;
 	protected Thread runningThread = null;
 
