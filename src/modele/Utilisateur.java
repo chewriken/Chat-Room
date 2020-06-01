@@ -1,11 +1,12 @@
 package modele;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+import vue.ChatRoomGUI;
 
 /**
- * <b> Classe qui permet de gérer les paramètres de l'Utilisateur </b>
- * @author adilbahou
- *
+ * Cette classe permet de cr�er l'objet contenant le pseudo le login et le mot de passe.
  */
 public class Utilisateur extends UnicastRemoteObject implements UtilisateurInterface {
 
@@ -13,9 +14,7 @@ public class Utilisateur extends UnicastRemoteObject implements UtilisateurInter
 	private String login;
 	private String mdp;
 	private String pseudo;
-	
 	/**
-	 * 
 	 * @param login
 	 * @param mdp
 	 * @param pseudo

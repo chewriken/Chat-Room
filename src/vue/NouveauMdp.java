@@ -17,6 +17,9 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 import java.awt.Color;
 
+/**
+ * Classe permettant le changement de mot de passse avec l'interface correspondante
+ */
 public class NouveauMdp extends JFrame {
 
 	private static JFrame frame;
