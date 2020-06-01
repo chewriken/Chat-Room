@@ -1,33 +1,24 @@
-package vue;
+package interfaceGraphique;
 
-
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-
-
-import modele.DataBaseConnect;
-import modele.Utilisateur;
-
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
-
-import controleur.Controleur;
-
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import java.sql.SQLException;
-
 import javax.swing.JButton;
+import java.awt.Color;
 
 public class NouveauMdp extends JFrame {
 
-	private static JFrame frame;
-	private JLabel ancienMDPField;
-	private static JTextField nouveauMDPField;
-	private static DataBaseConnect dB;
-	private Controleur controleur;
+	private JPanel contentPane;
+	private JFrame frame;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField confirmPasswordField;
 
 	/**
 	 * Launch the application.
@@ -36,7 +27,8 @@ public class NouveauMdp extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new NouveauMdp();
+					NouveauMdp frame = new NouveauMdp();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,6 +40,9 @@ public class NouveauMdp extends JFrame {
 	 * Create the frame.
 	 */
 	public NouveauMdp() {
+		
+		controleur = new Controleur();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setSize(400, 600);
@@ -55,16 +50,16 @@ public class NouveauMdp extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		Utilisateur user = ChatRoomGUI.getUser();
 		
-		ancienMDPField = new JLabel(user.getMdp());
-		ancienMDPField.setBounds(244, 204, 130, 26);
-		frame.getContentPane().add(ancienMDPField);
+		textField = new JTextField();
+		textField.setBounds(244, 204, 130, 26);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
 		
-		nouveauMDPField = new JTextField();
-		nouveauMDPField.setBounds(244, 280, 130, 26);
-		frame.getContentPane().add(nouveauMDPField);
-		nouveauMDPField.setColumns(10);
+		textField_1 = new JTextField();
+		textField_1.setBounds(244, 280, 130, 26);
+		frame.getContentPane().add(textField_1);
+		textField_1.setColumns(10);
 		
 		JLabel labelOldPassword = new JLabel("Ancien Mot de passe :");
 		labelOldPassword.setBounds(35, 209, 157, 16);
@@ -80,20 +75,24 @@ public class NouveauMdp extends JFrame {
 		frame.getContentPane().add(lblModificationMotDe);
 		
 		JButton btnConfirmerNewPassword = new JButton("Confirmer");
-		btnConfirmerNewPassword.setBounds(137, 390, 117, 29);
-		btnConfirmerNewPassword.setActionCommand("Changement mdp");
-		btnConfirmerNewPassword.addActionListener(controleur);
+		btnConfirmerNewPassword.setBounds(137, 416, 117, 29);
 		frame.getContentPane().add(btnConfirmerNewPassword);
+		
+		confirmPasswordField = new JTextField();
+		confirmPasswordField.setBounds(244, 330, 130, 26);
+		frame.getContentPane().add(confirmPasswordField);
+		confirmPasswordField.setColumns(10);
+		
+		JLabel lblConfirmerNewPassword = new JLabel("Confirmer Mot de Passe :");
+		lblConfirmerNewPassword.setBounds(27, 335, 165, 16);
+		frame.getContentPane().add(lblConfirmerNewPassword);
+		
+		JLabel lblPasswordFalse = new JLabel("Mot de passe non identique");
+		lblPasswordFalse.setForeground(Color.RED);
+		lblPasswordFalse.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		lblPasswordFalse.setBounds(114, 384, 166, 16);
+		frame.getContentPane().add(lblPasswordFalse);
 		
 		frame.setVisible(true);
 	}
-	
-	public static void changementMDP() throws ClassNotFoundException, SQLException{
-		dB = new DataBaseConnect();
-		Utilisateur user = ChatRoomGUI.getUser();
-		dB.modification("update publis.user set mdp = '" + nouveauMDPField.getText() +"' where mdp = '" + user.getMdp());
-		JOptionPane.showMessageDialog(frame, "mot de passe modifié");
-		frame.dispose();	
-	}
-
 }

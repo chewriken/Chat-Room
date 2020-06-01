@@ -1,6 +1,10 @@
 package vue;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import controleur.Controleur;
@@ -44,6 +48,7 @@ public class GestionCompte extends JFrame{
 		frame.setTitle("Information du compte");
 		frame.setBounds(100, 100, 565, 307);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Pseudo:");
