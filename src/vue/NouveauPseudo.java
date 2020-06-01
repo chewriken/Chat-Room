@@ -77,6 +77,11 @@ public class NouveauPseudo extends JFrame {
 		btnChangerPseudo.setBounds(139, 320, 145, 29);
 		btnChangerPseudo.setActionCommand("changement pseudo");
 		btnChangerPseudo.addActionListener(controleur);
+		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setBounds(18, 468, 117, 29);
+		frame.getContentPane().add(btnRetour);
+		frame.setVisible(true);
 		frame.getContentPane().add(btnChangerPseudo);
 		frame.setVisible(true);
 	}

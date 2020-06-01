@@ -78,6 +78,10 @@ public class NouveauLogin extends JFrame {
 		lblModificationNomDutilisateur.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		lblModificationNomDutilisateur.setBounds(83, 61, 222, 16);
 		frame.getContentPane().add(lblModificationNomDutilisateur);		
+		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setBounds(18, 468, 117, 29);
+		frame.getContentPane().add(btnRetour);
 		frame.setVisible(true);
 	}
 	
@@ -89,5 +93,4 @@ public class NouveauLogin extends JFrame {
 		JOptionPane.showMessageDialog(frame, "login modifié");
 		frame.dispose();	
 	}
-
 }

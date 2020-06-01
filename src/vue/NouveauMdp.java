@@ -102,6 +102,11 @@ public class NouveauMdp extends JFrame {
 		lblPasswordFalse.setVisible(false);
 		frame.getContentPane().add(lblPasswordFalse);
 		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setBounds(27, 490, 117, 29);
+		frame.getContentPane().add(btnRetour);
+		frame.setVisible(true);
+		
 		frame.setVisible(true);
 	}
 
