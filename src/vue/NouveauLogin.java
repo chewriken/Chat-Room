@@ -11,7 +11,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.sql.SQLException;
-
+/**
+ * Classe permettant le changement de login avec l'interface correspondante
+ */
 public class NouveauLogin extends JFrame {
 	private static JFrame frame;
 	private JLabel oldLoginField;

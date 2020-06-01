@@ -12,7 +12,9 @@ import java.awt.Font;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
-
+/**
+ * Classe permettant le changement de pseudo avec l'interface correspondante
+ */
 public class NouveauPseudo extends JFrame {
 	private static JFrame frame;
 	private JLabel ancienPseudoField;
@@ -72,6 +74,10 @@ public class NouveauPseudo extends JFrame {
 		frame.getContentPane().add(btnRetour);
 		frame.setVisible(true);
 	}
+	
+	/**
+	 * Méthode peermettant le changement de pseudo 
+	 */
 	
 	public static void changementPseudo() throws ClassNotFoundException, SQLException{
 		dB = new DataBaseConnect();

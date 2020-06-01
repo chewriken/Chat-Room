@@ -14,7 +14,9 @@ import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/*
+ * Classe permettant d'acceder à la fenêtre de connexion/inscription
+ */
 
 public class UserWindow {
 
@@ -92,6 +94,9 @@ public class UserWindow {
 		
 	}
 	
+	/**
+	 * Méthode permettant la connexion au Chat Room 
+	 */
 	 
 	
 	public static void connexion() throws SQLException, RemoteException, ClassNotFoundException {
