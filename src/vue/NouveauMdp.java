@@ -1,6 +1,5 @@
 package vue;
 
-
 import javax.swing.JFrame;
 import controleur.Controleur;
 import modele.DataBaseConnect;

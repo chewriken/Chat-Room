@@ -36,7 +36,7 @@ import modele.DataBaseConnect;
 import modele.Utilisateur;
 
 /**
- * Gère l'interface du chat avec toutes ses fonctionnalités
+ * Gï¿½re l'interface du chat avec toutes ses fonctionnalitï¿½s
  */
 public class ChatRoomGUI{
 	
@@ -54,15 +54,12 @@ public class ChatRoomGUI{
     private JButton btnSend;
     private JButton btnCompte;
     
-<<<<<<< HEAD
-    /**
+   /**
      * @param utilisateur
      */
     
-	public ChatRoomGUI(Utilisateur utilisateur) throws RemoteException {
-=======
+
 	public ChatRoomGUI(Utilisateur utilisateur) throws RemoteException, ClassNotFoundException, SQLException {
->>>>>>> branch 'master' of https://github.com/chewriken/Chat-Room.git
 		
 		try {
 			InetSocketAddress localIpAddrAndPort = new InetSocketAddress(5000);

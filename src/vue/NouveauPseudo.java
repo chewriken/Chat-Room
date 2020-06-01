@@ -1,6 +1,6 @@
 package vue;
 
-import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import controleur.Controleur;
@@ -76,7 +76,7 @@ public class NouveauPseudo extends JFrame {
 	}
 	
 	/**
-	 * Méthode peermettant le changement de pseudo 
+	 * Mï¿½thode peermettant le changement de pseudo 
 	 */
 	
 	public static void changementPseudo() throws ClassNotFoundException, SQLException{
