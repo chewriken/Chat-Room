@@ -1,6 +1,5 @@
 package vue;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import controleur.Controleur;
 import modele.DataBaseConnect;
@@ -15,25 +14,12 @@ import java.sql.SQLException;
 
 public class NouveauLogin extends JFrame {
 	private static JFrame frame;
-	private JLabel OldLoginField;
+	private JLabel oldLoginField;
 	private static JTextField newLoginField;
 	private Controleur controleur;
 	private static DataBaseConnect dB;
+	private JButton btnRetour;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new NouveauLogin();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -51,9 +37,9 @@ public class NouveauLogin extends JFrame {
 		
 		Utilisateur user = ChatRoomGUI.getUser();
 		
-		OldLoginField = new JLabel(user.getLogin());
-		OldLoginField.setBounds(224, 217, 130, 26);
-		frame.getContentPane().add(OldLoginField);
+		oldLoginField = new JLabel(user.getLogin());
+		oldLoginField.setBounds(224, 217, 130, 26);
+		frame.getContentPane().add(oldLoginField);
 		
 		newLoginField = new JTextField();
 		newLoginField.setBounds(224, 267, 130, 26);
@@ -79,8 +65,10 @@ public class NouveauLogin extends JFrame {
 		lblModificationNomDutilisateur.setBounds(83, 61, 222, 16);
 		frame.getContentPane().add(lblModificationNomDutilisateur);		
 		
-		JButton btnRetour = new JButton("Retour");
+		btnRetour = new JButton("Retour");
 		btnRetour.setBounds(18, 468, 117, 29);
+		btnRetour.setActionCommand("retour login");
+		btnRetour.addActionListener(controleur);
 		frame.getContentPane().add(btnRetour);
 		frame.setVisible(true);
 	}
@@ -92,5 +80,9 @@ public class NouveauLogin extends JFrame {
 		dB.modification("update public.chat set login = '" + newLoginField.getText() +"' where login = '" + user.getLogin() + "'");
 		JOptionPane.showMessageDialog(frame, "login modifié");
 		frame.dispose();	
+	}
+	
+	public static void fermeture(){
+		frame.dispose();
 	}
 }

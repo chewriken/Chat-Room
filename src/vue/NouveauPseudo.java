@@ -77,12 +77,13 @@ public class NouveauPseudo extends JFrame {
 		btnChangerPseudo.setBounds(139, 320, 145, 29);
 		btnChangerPseudo.setActionCommand("changement pseudo");
 		btnChangerPseudo.addActionListener(controleur);
+		frame.getContentPane().add(btnChangerPseudo);
 		
 		JButton btnRetour = new JButton("Retour");
 		btnRetour.setBounds(18, 468, 117, 29);
+		btnRetour.setActionCommand("retour pseudo");
+		btnRetour.addActionListener(controleur);
 		frame.getContentPane().add(btnRetour);
-		frame.setVisible(true);
-		frame.getContentPane().add(btnChangerPseudo);
 		frame.setVisible(true);
 	}
 	
@@ -92,5 +93,9 @@ public class NouveauPseudo extends JFrame {
 		dB.modification("update public.user set pseudo = '" + nouveauPseudoField.getText() +"' where login = '" + user.getLogin() + "'");
 		JOptionPane.showMessageDialog(frame, "pseudo modifié");
 		frame.dispose();	
+	}
+	
+	public static void fermeture(){
+		frame.dispose();
 	}
 }

@@ -48,7 +48,7 @@ public class ChatRoomGUI{
     private JTextArea messageArea;
     private JTextArea userArea = new JTextArea();
     private JTextField txtEcrivezVotreMessage = new JTextField();
-    private JButton btnSend = new JButton("Envoyer");
+    private JButton btnSend;
     private JButton btnCompte;
     
 	public ChatRoomGUI(Utilisateur utilisateur) throws RemoteException, ClassNotFoundException, SQLException {
@@ -96,6 +96,7 @@ public class ChatRoomGUI{
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.getContentPane().setLayout(null);
 			
+			btnSend = new JButton("Envoyer");
 			btnSend.setBounds(381, 312, 150, 35);
 			btnSend.setForeground(new Color(0, 0, 0));
 			btnSend.setBackground(new Color(175, 238, 238));
