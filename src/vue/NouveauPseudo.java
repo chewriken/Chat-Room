@@ -39,7 +39,9 @@ public class NouveauPseudo extends JFrame {
 	 * Create the frame.
 	 */
 	public NouveauPseudo() {
-	
+		
+		controleur = new Controleur();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);	
 		frame.setSize(400, 600);		
@@ -73,7 +75,7 @@ public class NouveauPseudo extends JFrame {
 		
 		JButton btnChangerPseudo = new JButton("Confirmer");
 		btnChangerPseudo.setBounds(139, 320, 145, 29);
-		btnChangerPseudo.setActionCommand("Changement pseudo");
+		btnChangerPseudo.setActionCommand("changement pseudo");
 		btnChangerPseudo.addActionListener(controleur);
 		frame.getContentPane().add(btnChangerPseudo);
 		frame.setVisible(true);
@@ -82,7 +84,7 @@ public class NouveauPseudo extends JFrame {
 	public static void changementPseudo() throws ClassNotFoundException, SQLException{
 		dB = new DataBaseConnect();
 		Utilisateur user = ChatRoomGUI.getUser();
-		dB.modification("update publis.user set pseudo = '" + nouveauPseudoField.getText() +"' where pseudo = '" + user.getPseudo());
+		dB.modification("update public.user set pseudo = '" + nouveauPseudoField.getText() +"' where login = '" + user.getLogin() + "'");
 		JOptionPane.showMessageDialog(frame, "pseudo modifié");
 		frame.dispose();	
 	}

@@ -161,6 +161,7 @@ public class InscriptionWindow {
 			}else {
 				dB.modification("INSERT INTO public.user (login, mdp, pseudo) VALUES ('"+ utilisateurField.getText()+"', '"
 				+ mdpField.getText()+"', '"+ pseudoField.getText() +"') " );
+				dB.modification("INSERT INTO public.chat (login) VALUES ('"+ utilisateurField.getText() + "') " );
 				frame.dispose();
 				new ChatRoomGUI(new Utilisateur(utilisateurField.getText(),mdpField.getText(),pseudoField.getText()));
 			}

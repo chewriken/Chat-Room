@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-
 import vue.GestionCompte;
 import vue.InscriptionWindow;
 import vue.NouveauLogin;
@@ -66,7 +65,6 @@ public class Controleur implements ActionListener {
 			case "changement mdp":
 				try {
 					NouveauMdp.changementMDP();
-					GestionCompte.FenetreGestion();
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

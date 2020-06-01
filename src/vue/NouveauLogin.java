@@ -17,7 +17,7 @@ public class NouveauLogin extends JFrame {
 	private static JFrame frame;
 	private JLabel OldLoginField;
 	private static JTextField newLoginField;
-	private Controleur controleur = new Controleur();
+	private Controleur controleur;
 	private static DataBaseConnect dB;
 
 	/**
@@ -39,6 +39,8 @@ public class NouveauLogin extends JFrame {
 	 * Create the frame.
 	 */
 	public NouveauLogin() {
+		
+		controleur = new Controleur();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -68,7 +70,7 @@ public class NouveauLogin extends JFrame {
 		
 		JButton btnConfirmer = new JButton("Confirmer");
 		btnConfirmer.setBounds(142, 369, 117, 29);
-		btnConfirmer.setActionCommand("Changement login");
+		btnConfirmer.setActionCommand("changement login");
 		btnConfirmer.addActionListener(controleur);
 		frame.getContentPane().add(btnConfirmer);
 		
@@ -82,7 +84,8 @@ public class NouveauLogin extends JFrame {
 	public static void changementLogin() throws ClassNotFoundException, SQLException{
 		dB = new DataBaseConnect();
 		Utilisateur user = ChatRoomGUI.getUser();
-		dB.modification("update publis.user set login = '" + newLoginField.getText() +"' where login = '" + user.getLogin());
+		dB.modification("update public.user set login = '" + newLoginField.getText() +"' where login = '" + user.getLogin() + "'");
+		dB.modification("update public.chat set login = '" + newLoginField.getText() +"' where login = '" + user.getLogin() + "'");
 		JOptionPane.showMessageDialog(frame, "login modifié");
 		frame.dispose();	
 	}

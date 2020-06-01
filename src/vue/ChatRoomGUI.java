@@ -20,6 +20,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,6 +32,7 @@ import javax.swing.ScrollPaneConstants;
 
 import controleur.Controleur;
 import modele.ChatRoomInterface;
+import modele.DataBaseConnect;
 import modele.Utilisateur;
 
 public class ChatRoomGUI{
@@ -39,15 +42,16 @@ public class ChatRoomGUI{
     protected Socket clientSocket = new Socket(); 
     private static Utilisateur user;
     private Controleur controleur;
+    private DataBaseConnect dB;
     
     private JFrame frame = new JFrame(this.title);
-    private JTextArea messageArea = new JTextArea();
+    private JTextArea messageArea;
     private JTextArea userArea = new JTextArea();
     private JTextField txtEcrivezVotreMessage = new JTextField();
     private JButton btnSend = new JButton("Envoyer");
     private JButton btnCompte;
     
-	public ChatRoomGUI(Utilisateur utilisateur) throws RemoteException {
+	public ChatRoomGUI(Utilisateur utilisateur) throws RemoteException, ClassNotFoundException, SQLException {
 		
 		try {
 			InetSocketAddress localIpAddrAndPort = new InetSocketAddress(5000);
@@ -80,8 +84,10 @@ public class ChatRoomGUI{
 		
 		/**
 		 * Initialize the contents of the frame.
+		 * @throws SQLException 
+		 * @throws ClassNotFoundException 
 		 */
-		private void initialize() {
+		private void initialize() throws ClassNotFoundException, SQLException {
 			
 			// Assemblage des composants
 			controleur = new Controleur();
@@ -128,7 +134,8 @@ public class ChatRoomGUI{
 			scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 			scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			scrollPane_2.setBounds(486, 1, 250, 325);
-	
+			
+			chargementChat();
 			messageArea.setBackground(new Color(240, 255, 240));
 			scrollPane_1.setViewportView(messageArea);
 			
@@ -147,6 +154,12 @@ public class ChatRoomGUI{
                 try {
 					window_windowClosing(e);
 				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
             }
@@ -174,8 +187,9 @@ public class ChatRoomGUI{
 	
     
     //desinscription
-    public void window_windowClosing(WindowEvent e) throws IOException {
+    public void window_windowClosing(WindowEvent e) throws IOException, ClassNotFoundException, SQLException {
     	this.room.desinscription(user.getPseudo());
+    	sauvegarde();
     	clientSocket.close();
     	frame.dispose();
     	System.exit(-1);
@@ -206,6 +220,23 @@ public class ChatRoomGUI{
 	
 	public static Utilisateur getUser() {
 		return user;
+	}
+	
+	public void sauvegarde() throws ClassNotFoundException, SQLException{
+		dB = new DataBaseConnect();
+		dB.modification("update public.chat set historique = '" + messageArea.getText() +"' where login = '" + user.getLogin() + "'");
+	}
+	
+	public void chargementChat() throws ClassNotFoundException, SQLException{
+		dB = new DataBaseConnect();
+		ResultSet rset = dB.query("select historique from public.chat where login = '" + user.getLogin() +"'");
+		String historique = new String();
+
+		while (rset.next()) {
+			historique = historique + rset.getString(1);
+		}
+		
+		messageArea = new JTextArea(historique);
 	}
 	
 }
