@@ -5,6 +5,15 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+
+/**
+ * <b> Cette classe gère la salle de Chat </b>
+ * 
+ *  
+ * 
+ * @author adilbahou
+ *
+ */
 public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 
 	Hashtable<String, UtilisateurInterface> utilisateurs;
@@ -13,7 +22,11 @@ public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 		super();
 		utilisateurs = new Hashtable<String, UtilisateurInterface>();
 	}
-
+	/**
+	 * Méthode utilisée lorsque l'utilisateur entre ses identifiants pour se connecter
+	 * @param user
+	 * @param pseudo
+	 */
 	public void inscription(UtilisateurInterface user, String pseudo) throws RemoteException  {
 		if(!utilisateurs.containsKey(pseudo)){
 			utilisateurs.put(pseudo, user);
@@ -21,7 +34,10 @@ public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 		} 
 	}
 
-
+	/** 
+	 * Cette méthode est utilisée pour déconnecter l'utilisateur
+	 * @param pseudo
+	 */
 	public void desinscription(String pseudo) throws RemoteException {
 		String message = pseudo+" disconnected";
 		if(utilisateurs.containsKey(pseudo)){
@@ -29,7 +45,11 @@ public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 			this.messageInscription(pseudo, message);
 		}
 	}
-
+	/** 
+	 * Méthode permettant de poster le message sur l'interface
+	 * @param pseudo
+	 * @param message
+	 */
 	public void postMessage(String pseudo, String message) throws RemoteException  {
 		String messageEntier = pseudo + " : \n" + message + " \n ";
 		System.out.println(messageEntier);
@@ -39,7 +59,11 @@ public class ChatRoom extends UnicastRemoteObject implements ChatRoomInterface{
 			user.displayMessage(messageEntier);
 		}
 	}
-	
+	/**
+	 * Méthode qui permet d'afficher la connexion d'un nouvel utilisateur
+	 * @param pseudo
+	 * @param message
+	 */
 	private void messageInscription(String pseudo, String message) throws RemoteException {
 		String messageEntier = pseudo + " >>> " +message;
 		System.out.println(messageEntier);

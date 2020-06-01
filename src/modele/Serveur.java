@@ -1,6 +1,7 @@
 package modele;
 
 import java.io.IOException;
+
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
@@ -11,6 +12,16 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
+/** 
+ * <b> Serveur est la classe qui nous permet d'héberger la connexion entre le client et le serveur </b>
+ * 
+ * <p> 
+ * 	Utilisation de la classe ServerSocket qui est créée sur le port spécifié
+ * 
+ * <p>
+ * @author adilbahou
+ *
+ */
 
 public class Serveur implements Runnable {
  

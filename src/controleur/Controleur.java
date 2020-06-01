@@ -11,6 +11,16 @@ import vue.NouveauMdp;
 import vue.NouveauPseudo;
 import vue.UserWindow;
 
+/** 
+ * <b> Cette classe contrôle toutes les actions de l'utilisateur </b>
+ * 
+ * <p>
+ * Utilisation d'un switch, chaque case correspond à l'ouverture d'une fenêtre 
+ * <p>
+ * @author adilbahou
+ *
+ */
+
 public class Controleur implements ActionListener {
 	
 	public Controleur (){

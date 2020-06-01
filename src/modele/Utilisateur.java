@@ -1,10 +1,12 @@
 package modele;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-import vue.ChatRoomGUI;
-
+/**
+ * <b> </b>
+ * @author adilbahou
+ *
+ */
 public class Utilisateur extends UnicastRemoteObject implements UtilisateurInterface {
 
 	private ChatRoomGUI ig;
